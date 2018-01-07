@@ -258,7 +258,7 @@ snippet tran
 	if o == nil {
 		oo := orm.NewOrm()
 		o = &oo
-		if err = (*o).Begin(); err == nil {
+		if e := (*o).Begin(); e == nil {
 			defer func() {
 				if err != nil {
 					(*o).Rollback()
@@ -266,5 +266,15 @@ snippet tran
 					retCode = consts.ERROR_CODE__DB__TRANSACTION_COMMIT_FAILED
 				}
 			}()
+		} else {
+			err = e
+			retCode = consts.ERROR_CODE__DB__TRANSACTION_BEGIN_FAILED
 		}
+	}
+
+## beego model, get orm o
+snippet oo
+	if o == nil {
+		oo := orm.NewOrm()
+		o = &oo
 	}
