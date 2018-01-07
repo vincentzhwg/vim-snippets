@@ -255,16 +255,16 @@ snippet ja
 
 # beego model orm transaction
 snippet tran
-    if o == nil {
-        oo := orm.NewOrm()
-        o = &oo
-        if err = (*o).Begin(); err == nil {
-            defer func() {
-                if err != nil {
-                    (*o).Rollback()
-                } else if err = (*o).Commit(); err != nil {
-                    retCode = consts.ERROR_CODE__DB__TRANSACTION_COMMIT_FAILED
-                }
-            }()
-        }
-    }	
+	if o == nil {
+		oo := orm.NewOrm()
+		o = &oo
+		if err = (*o).Begin(); err == nil {
+			defer func() {
+				if err != nil {
+					(*o).Rollback()
+				} else if err = (*o).Commit(); err != nil {
+					retCode = consts.ERROR_CODE__DB__TRANSACTION_COMMIT_FAILED
+				}
+			}()
+		}
+	}
