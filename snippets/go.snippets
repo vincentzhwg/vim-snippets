@@ -262,8 +262,12 @@ snippet tran
 			defer func() {
 				if err != nil {
 					(*o).Rollback()
-				} else if err = (*o).Commit(); err != nil {
+					return
+				}
+				if err = (*o).Commit(); err != nil {
 					retCode = consts.ERROR_CODE__DB__TRANSACTION_COMMIT_FAILED
+				} else {
+					// add somthing to do after fininshing commit
 				}
 			}()
 		} else {
